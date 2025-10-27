@@ -1,0 +1,32 @@
+<h2 class="text-lg font-semibold mb-4 text-gray-800 dark:text-white">
+  Listado de Permisos
+</h2>
+
+<table class="table-auto w-full border border-gray-200 dark:border-gray-700">
+  <thead>
+    <tr class="bg-gray-100 dark:bg-gray-800">
+      <th class="px-4 py-2 text-left text-gray-700 dark:text-gray-200">Nombre</th>
+      <th class="px-4 py-2 text-left text-gray-700 dark:text-gray-200">Descripción</th>
+      <th class="px-4 py-2 text-center text-gray-700 dark:text-gray-200">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (p of permissions(); track p.id) {
+      <tr class="border-t border-gray-200 dark:border-gray-700">
+        <td class="px-4 py-2 text-gray-800 dark:text-gray-100">{{ p.name }}</td>
+        <td class="px-4 py-2 text-gray-800 dark:text-gray-100">{{ p.description }}</td>
+        <td class="px-4 py-2 text-center space-x-2">
+          <button (click)="edit(p)" class="btn btn-sm">Editar</button>
+          <button (click)="remove(p.id)" class="btn btn-sm btn-danger">Eliminar</button>
+        </td>
+      </tr>
+    }
+    @empty {
+      <tr>
+        <td colspan="3" class="px-4 py-2 text-center text-gray-500 dark:text-gray-400">
+          No hay permisos registrados
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

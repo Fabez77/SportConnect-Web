@@ -1,0 +1,47 @@
+<div class="space-y-6">
+  <!-- Título -->
+  <h2 class="text-2xl font-bold text-champions-dark dark:text-white">
+    Dashboard
+  </h2>
+
+  <!-- Métricas -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="p-6 rounded-lg shadow bg-white dark:bg-champions-blue-800">
+      <h3 class="text-lg font-semibold">Usuarios</h3>
+      <p class="text-3xl font-bold text-champions-blue-600">128</p>
+    </div>
+    <div class="p-6 rounded-lg shadow bg-white dark:bg-champions-blue-800">
+      <h3 class="text-lg font-semibold">Roles</h3>
+      <p class="text-3xl font-bold text-champions-accentScale-500">6</p>
+    </div>
+    <div class="p-6 rounded-lg shadow bg-white dark:bg-champions-blue-800">
+      <h3 class="text-lg font-semibold">Permisos</h3>
+      <p class="text-3xl font-bold text-champions-gray-600">42</p>
+    </div>
+  </div>
+
+  <!-- Accesos rápidos -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="p-6 rounded-lg shadow bg-white dark:bg-champions-blue-800">
+      <h3 class="text-lg font-semibold mb-2">Gestión de Usuarios</h3>
+      <p class="text-sm text-champions-gray-600 dark:text-champions-gray-200">
+        Administra cuentas, roles y permisos de los usuarios.
+      </p>
+      <a routerLink="/admin/users"
+         class="inline-block mt-4 px-4 py-2 rounded bg-champions-blue-600 hover:bg-champions-blue-700 text-white">
+        Ir a Usuarios
+      </a>
+    </div>
+
+    <div class="p-6 rounded-lg shadow bg-white dark:bg-champions-blue-800">
+      <h3 class="text-lg font-semibold mb-2">Configuración</h3>
+      <p class="text-sm text-champions-gray-600 dark:text-champions-gray-200">
+        Ajusta parámetros generales de la plataforma.
+      </p>
+      <a routerLink="/admin/settings"
+         class="inline-block mt-4 px-4 py-2 rounded bg-champions-accentScale-500 hover:bg-champions-accentScale-600 text-white">
+        Ir a Configuración
+      </a>
+    </div>
+  </div>
+</div>

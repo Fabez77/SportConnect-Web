@@ -1,0 +1,28 @@
+<div class="container mx-auto p-6 space-y-6">
+  <h1 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">
+    Gestión de Permisos
+  </h1>
+
+  @if (facade.message()) {
+    <div class="p-3 rounded bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+      {{ facade.message() }}
+    </div>
+  }
+  @if (facade.errorMessage()) {
+    <div class="p-3 rounded bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+      {{ facade.errorMessage() }}
+    </div>
+  }
+
+  <!-- Card de formulario -->
+  <div class="rounded-2xl border border-gray-200 bg-white shadow p-4 
+              dark:border-gray-800 dark:bg-white/[0.03]">
+    <app-permission-form></app-permission-form>
+  </div>
+
+  <!-- Card de listado -->
+  <div class="rounded-2xl border border-gray-200 bg-white shadow p-4 
+              dark:border-gray-800 dark:bg-white/[0.03]">
+    <app-permission-list></app-permission-list>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<!-- Card container -->
+<div class="card-container">
+  <!-- Card header -->
+  <div class="card-header">
+    <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
+      @if (facade.editingPermission()) {
+        Editar Permiso
+      } @else {
+        Crear Permiso
+      }
+    </h2>
+
+    <div class="flex items-center gap-2">
+      <!-- Botón Nuevo -->
+      <button (click)="openAndReset()"
+              class="text-sm px-3 py-1 rounded bg-gray-200 hover:bg-gray-300
+                     dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white">
+        + Nuevo
+      </button>
+
+      <!-- Botón Colapsar -->
+      <button (click)="toggle()"
+              class="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white">
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <!-- Card body (collapsable) -->
+  @if (isOpen()) {
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" class="space-y-4">
+        <div>
+          <label for="name" class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
+            Nombre
+          </label>
+          <input
+            id="name"
+            type="text"
+            [(ngModel)]="model().name"
+            name="name"
+            required
+            placeholder="Nombre del permiso"
+            class="w-full border rounded px-3 py-2
+                   border-gray-300 dark:border-gray-700
+                   bg-white dark:bg-gray-900
+                   text-gray-800 dark:text-gray-100"
+          />
+        </div>
+
+        <div>
+          <label for="description" class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
+            Descripción
+          </label>
+          <input
+            id="description"
+            type="text"
+            [(ngModel)]="model().description"
+            name="description"
+            placeholder="Descripción del permiso"
+            class="w-full border rounded px-3 py-2
+                   border-gray-300 dark:border-gray-700
+                   bg-white dark:bg-gray-900
+                   text-gray-800 dark:text-gray-100"
+          />
+        </div>
+
+        <div class="flex justify-end">
+          <button type="submit"
+                  class="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700
+                         dark:bg-blue-500 dark:hover:bg-blue-600">
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+</div>
