@@ -1,0 +1,41 @@
+<div class="container mx-auto p-2 space-y-2">
+  <h1 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">
+    Gestión de Permisos
+  </h1>
+
+  @if (facade.message()) {
+    <div class="p-3 rounded bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+      {{ facade.message() }}
+    </div>
+  }
+  @if (facade.errorMessage()) {
+    <div class="p-3 rounded bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+      {{ facade.errorMessage() }}
+    </div>
+  }
+
+  <!-- Card de formulario -->
+  <app-permission-form
+    class="mb-6"
+    [isOpen]="isFormOpen()"
+    [editing]="facade.editingPermission()"
+    (save)="onSave($event)"
+    (close)="onClose()"
+    (new)="onNew()"
+    (cancel)="onCancel()"
+    (toggle)="onToggleForm()">
+  </app-permission-form>
+
+  <!-- Card de listado -->
+  <app-permission-list
+    [permissions]="tableState.data()"
+    [totalItems]="tableState.totalItems()"
+    [pageIndex]="tableState.pageIndex()"
+    [pageSize]="tableState.pageSize()"
+    (edit)="onEdit($event)"
+    (remove)="onRemove($event)"
+    (page)="onPageChange($event)"
+    (filter)="onFilter($event)"
+    (sort)="onSort($event)">
+  </app-permission-list>
+</div>
