@@ -58,9 +58,20 @@ export class RoleService {
     );
   }
 
-  // 👇 Nuevo método: asignar permisos a un rol
+  /** 🔹 Obtener permisos asignados a un rol */
+  getRolePermissions(roleId: string) {
+    return this.http.get<ApiResponse<string[]>>(`${this.apiUrl}/${roleId}/permissions`).pipe(
+      map(res => ({ data: res.data, message: res.message })),
+      catchError(err => {
+        const msg = err.error?.message || 'Error al obtener permisos del rol';
+        return throwError(() => new Error(msg));
+      })
+    );
+  }
+
+  /** 🔹 Asignar permisos a un rol */
   assignPermissions(roleId: string, permissionIds: string[]) {
-    return this.http.post<ApiResponse<void>>(
+    return this.http.put<ApiResponse<void>>(
       `${this.apiUrl}/${roleId}/permissions`,
       { permissionIds }
     ).pipe(

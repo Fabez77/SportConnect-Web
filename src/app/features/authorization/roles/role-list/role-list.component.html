@@ -29,6 +29,9 @@
         <td mat-cell *matCellDef="let r" class="text-center align-middle">
           <div class="inline-flex gap-x-2">
             <button class="btn btn-primary" (click)="edit.emit(r)">Editar</button>
+            <button class="btn btn-accent" [routerLink]="['/admin/roles', r.id, 'permissions']">
+              Asignar permisos
+            </button>
             <button class="btn btn-danger" (click)="remove.emit(r.id)">Eliminar</button>
           </div>
         </td>

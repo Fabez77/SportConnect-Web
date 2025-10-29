@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule, Sort } from '@angular/material/sort';
@@ -14,6 +15,7 @@ import { InputFieldComponent } from '../../../../shared/components/input-field/i
   standalone: true,
   imports: [
     CommonModule,
+    RouterLink,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,

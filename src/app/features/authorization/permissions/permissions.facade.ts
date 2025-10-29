@@ -8,22 +8,33 @@ import { DataTableRequest } from '../../../core/models/datatable.model';
 
 @Injectable({ providedIn: 'root' })
 export class PermissionFacade {
+  // Estado general
   message = signal<string | null>(null);
   errorMessage = signal<string | null>(null);
   editingPermission = signal<PermissionResponseDTO | null>(null);
   loading = signal<boolean>(false);
+
+  // 👇 Exponemos los signals del TableStateService para usarlos en el template
 
   constructor(
     private service: PermissionService,
     private tableState: TableStateService<PermissionResponseDTO>
   ) {}
 
+  get data() { return this.tableState.data; }
+  get totalItems() { return this.tableState.totalItems; }
+  get pageIndex() { return this.tableState.pageIndex; }
+  get pageSize() { return this.tableState.pageSize; }
+  setPage(index: number, size: number) {
+    this.tableState.setPage(index, size);
+  }
+
   load() {
     this.loading.set(true);
 
     const request: DataTableRequest = {
-      page: this.tableState.pageIndex(),
-      size: this.tableState.pageSize(),
+      page: this.pageIndex(),
+      size: this.pageSize(),
       sortBy: this.tableState.sort().active,
       direction: this.tableState.sort().direction.toUpperCase() as 'ASC' | 'DESC',
       filters: { search: this.tableState.filter() }

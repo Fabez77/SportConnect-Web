@@ -38,7 +38,7 @@ export class PermissionListComponent {
   @Output() sort = new EventEmitter<Sort>();
 
   // 👇 columnas que se muestran en la tabla
-  displayedColumns: string[] = ['name', 'description', 'actions'];
+  displayedColumns: string[] = ['name', 'description', 'category', 'actions'];
 
   applyFilter(value: string | number | null) {
     const search = (value ?? '').toString().trim().toLowerCase();

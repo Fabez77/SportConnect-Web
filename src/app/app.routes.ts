@@ -3,6 +3,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 // import { ClientLayoutComponent } from './layouts/client-layout/client-layout.component';
 import { PermissionPageComponent } from './features/authorization/permissions/permission-page/permission-page.component';
 import { RolePageComponent } from './features/authorization/roles/role-page/role-page.component';
+import { RolePermissionAssignComponent } from './features/authorization/roles/role-permission-assign/role-permission-assign.component';
 
 export const routes: Routes = [
   {
@@ -11,6 +12,7 @@ export const routes: Routes = [
     children: [
       { path: 'permissions', component: PermissionPageComponent },
       { path: 'roles', component: RolePageComponent },
+      { path: 'roles/:id/permissions', component: RolePermissionAssignComponent },
       { path: '', redirectTo: 'permissions', pathMatch: 'full' }
     ]
   },

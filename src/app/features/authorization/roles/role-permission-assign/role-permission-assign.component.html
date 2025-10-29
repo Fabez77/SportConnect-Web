@@ -1,0 +1,49 @@
+<div class="container mx-auto p-2 space-y-2">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
+      Asignar permisos al rol
+    </h2>
+    <button class="btn btn-secondary" (click)="back()">Regresar</button>
+  </div>
+
+  <table mat-table [dataSource]="permissionFacade.data()" class="mat-elevation-z2 w-full">
+    <!-- Nombre -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td mat-cell *matCellDef="let p">{{ p.name }}</td>
+    </ng-container>
+
+    <!-- Descripción -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Descripción</th>
+      <td mat-cell *matCellDef="let p">{{ p.description }}</td>
+    </ng-container>
+
+    <!-- Toggle -->
+    <ng-container matColumnDef="toggle">
+      <th mat-header-cell *matHeaderCellDef>Asignado</th>
+      <td mat-cell *matCellDef="let p">
+        <mat-slide-toggle
+          [checked]="selected().has(p.id)"
+          (change)="togglePermission(p.id, $event.checked)">
+        </mat-slide-toggle>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['name','description','toggle']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name','description','toggle']"></tr>
+  </table>
+
+  <!-- Paginador -->
+  <mat-paginator
+    [length]="permissionFacade.totalItems()"
+    [pageIndex]="permissionFacade.pageIndex()"
+    [pageSize]="permissionFacade.pageSize()"
+    [pageSizeOptions]="[5, 10, 20]"
+    (page)="permissionFacade.setPage($event.pageIndex, $event.pageSize); permissionFacade.load()">
+  </mat-paginator>
+
+  <div class="flex justify-end mt-4">
+    <button class="btn btn-success" (click)="save()">Guardar</button>
+  </div>
+</div>

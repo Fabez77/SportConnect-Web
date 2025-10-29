@@ -12,11 +12,12 @@ export class RoleFacade {
   errorMessage = signal<string | null>(null);
   editingRole = signal<RoleResponseDTO | null>(null);
   loading = signal<boolean>(false);
+  rolePermissions = signal<string[]>([]);
 
   constructor(
     private service: RoleService,
     private tableState: TableStateService<RoleResponseDTO>
-  ) {}
+  ) { }
 
   load() {
     this.loading.set(true);
@@ -78,13 +79,27 @@ export class RoleFacade {
     });
   }
 
+  loadRolePermissions(roleId: string) {
+    this.loading.set(true);
+    this.service.getRolePermissions(roleId).subscribe({
+      next: (res) => {
+        this.rolePermissions.set(res.data);
+        this.message.set(res.message);
+        this.errorMessage.set(null);
+        this.loading.set(false);
+      },
+      error: (err) => this.handleError(err)
+    });
+  }
+
   assignPermissions(roleId: string, permissionIds: string[]) {
     this.loading.set(true);
     this.service.assignPermissions(roleId, permissionIds).subscribe({
       next: (res) => {
         this.message.set(res.message);
         this.errorMessage.set(null);
-        this.load(); // opcional: recargar tabla si se refleja
+        this.rolePermissions.set(permissionIds); // 👈 actualiza estado local
+        this.loading.set(false);
       },
       error: (err) => this.handleError(err)
     });
