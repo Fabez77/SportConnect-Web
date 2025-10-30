@@ -4,6 +4,7 @@ import { map, catchError, throwError, Observable } from 'rxjs';
 import { CreateRoleDTO } from './models/create-role.dto';
 import { UpdateRoleDTO } from './models/update-role.dto';
 import { RoleResponseDTO } from './models/role-response.dto';
+import { RolePermissionsResponse } from './models/rolepermission-response.dto';
 import { ApiResponse } from '../../../core/models/api-response.model';
 import { DataTableService } from '../../../core/services/datatable.service';
 import { DataTableRequest, DataTableResponse } from '../../../core/models/datatable.model';
@@ -12,7 +13,7 @@ import { DataTableRequest, DataTableResponse } from '../../../core/models/datata
 export class RoleService {
   private apiUrl = '/api/roles';
 
-  constructor(private http: HttpClient, private dataTable: DataTableService) {}
+  constructor(private http: HttpClient, private dataTable: DataTableService) { }
 
   getRoles(
     request: DataTableRequest
@@ -60,14 +61,18 @@ export class RoleService {
 
   /** 🔹 Obtener permisos asignados a un rol */
   getRolePermissions(roleId: string) {
-    return this.http.get<ApiResponse<string[]>>(`${this.apiUrl}/${roleId}/permissions`).pipe(
-      map(res => ({ data: res.data, message: res.message })),
+    return this.http.get<ApiResponse<RolePermissionsResponse>>(`${this.apiUrl}/${roleId}/permissions`).pipe(
+      map(res => ({
+        data: res.data.permissions, // 👈 extraemos el array de UUIDs
+        message: res.message
+      })),
       catchError(err => {
         const msg = err.error?.message || 'Error al obtener permisos del rol';
         return throwError(() => new Error(msg));
       })
     );
   }
+
 
   /** 🔹 Asignar permisos a un rol */
   assignPermissions(roleId: string, permissionIds: string[]) {

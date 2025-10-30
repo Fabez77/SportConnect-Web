@@ -12,13 +12,7 @@ import { RoleFacade } from '../roles.facade';
 @Component({
   selector: 'app-role-permission-assign',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatTableModule,
-    MatSlideToggleModule,
-    MatButtonModule,
-    MatPaginatorModule
-  ],
+  imports: [CommonModule, MatTableModule, MatSlideToggleModule, MatButtonModule, MatPaginatorModule],
   templateUrl: './role-permission-assign.component.html'
 })
 export class RolePermissionAssignComponent implements OnInit {
@@ -30,19 +24,15 @@ export class RolePermissionAssignComponent implements OnInit {
   roleId!: string;
   selected = signal<Set<string>>(new Set());
 
+  // 👇 effect declarado como propiedad, no en ngOnInit
+  syncRolePermissions = effect(() => {
+    this.selected.set(new Set(this.roleFacade.rolePermissions()));
+  });
+
   ngOnInit() {
     this.roleId = this.route.snapshot.paramMap.get('id')!;
-
-    // 1. Cargar todos los permisos (datatable)
     this.permissionFacade.load();
-
-    // 2. Cargar permisos asignados al rol
     this.roleFacade.loadRolePermissions(this.roleId);
-
-    // 3. Sincronizar estado local con los asignados
-    effect(() => {
-      this.selected.set(new Set(this.roleFacade.rolePermissions()));
-    });
   }
 
   togglePermission(id: string, checked: boolean) {
